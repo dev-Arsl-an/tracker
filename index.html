@@ -15,425 +15,151 @@
     --accent2: #a78bfa;
     --success: #34d399;
     --danger: #f87171;
+    --warn: #fbbf24;
     --text: #e2e8f0;
     --text-muted: #6b7694;
     --text-dim: #3d4563;
     --mono: 'DM Mono', monospace;
     --sans: 'DM Sans', sans-serif;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    line-height: 1.5;
-  }
-
-  /* Background grid */
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; line-height: 1.5; }
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    position: fixed; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 40px 40px;
     opacity: 0.3;
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
+  .app { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
 
-  .app {
-    position: relative;
-    z-index: 1;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
-
-  /* Header */
-  header {
-    margin-bottom: 40px;
-  }
-
-  .header-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  h1 {
-    font-size: 32px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    color: var(--text);
-    line-height: 1.1;
-  }
-
-  h1 span {
-    color: var(--accent2);
-  }
-
-  .header-sub {
-    margin-top: 6px;
-    font-size: 14px;
-    color: var(--text-muted);
-  }
+  header { margin-bottom: 36px; }
+  .header-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.5px; color: var(--text); line-height: 1.1; }
+  h1 span { color: var(--accent2); }
+  .header-sub { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
 
   /* Tabs */
-  .tabs {
-    display: flex;
-    gap: 2px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 4px;
-    margin-bottom: 28px;
-  }
-
-  .tab-btn {
-    flex: 1;
-    padding: 9px 16px;
-    border: none;
-    border-radius: 7px;
-    background: transparent;
-    color: var(--text-muted);
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .tab-btn.active {
-    background: var(--surface2);
-    color: var(--text);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-  }
-
+  .tabs { display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 4px; margin-bottom: 28px; }
+  .tab-btn { flex: 1; padding: 9px 12px; border: none; border-radius: 7px; background: transparent; color: var(--text-muted); font-family: var(--sans); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; position: relative; }
+  .tab-btn.active { background: var(--surface2); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
   .tab-btn:hover:not(.active) { color: var(--text); }
-
-  /* Tab panels */
+  .tab-badge { position: absolute; top: 4px; right: 6px; background: var(--danger); color: #fff; font-size: 10px; font-family: var(--mono); padding: 1px 5px; border-radius: 10px; line-height: 1.4; display: none; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* Add Form */
-  .form-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-
-  .form-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    font-family: var(--mono);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 80px;
-    gap: 12px;
-    align-items: end;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    font-family: var(--mono);
-    letter-spacing: 0.5px;
-  }
-
+  /* Form */
+  .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 24px; }
+  .form-title { font-size: 13px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; font-family: var(--mono); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr 80px; gap: 12px; align-items: end; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 12px; font-weight: 500; color: var(--text-muted); font-family: var(--mono); letter-spacing: 0.5px; }
   input[type="date"], input[type="number"], select {
-    width: 100%;
-    padding: 10px 12px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
+    width: 100%; padding: 10px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); font-family: var(--mono); font-size: 14px; outline: none; transition: border-color 0.2s;
+    appearance: none; -webkit-appearance: none;
   }
-
-  input[type="date"]:focus,
-  input[type="number"]:focus,
-  select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(91,138,245,0.1);
-  }
-
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(0.6);
-    cursor: pointer;
-  }
-
+  input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(91,138,245,0.1); }
+  input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
   input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-
   select option { background: var(--surface2); }
+  .form-actions { margin-top: 14px; display: flex; justify-content: flex-end; }
 
-  .btn-add {
-    padding: 10px 14px;
-    background: var(--accent);
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-family: var(--sans);
-    font-size: 20px;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.2s;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-  }
+  /* Buttons */
+  .btn { padding: 10px 20px; border: none; border-radius: 8px; font-family: var(--sans); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.3px; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #4a79e4; transform: translateY(-1px); }
+  .btn-ghost { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
-  .btn-add:hover { background: #4a79e4; transform: translateY(-1px); }
-  .btn-add:active { transform: translateY(0); }
+  /* Section label */
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* Records list */
-  .section-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+  /* Records */
+  .records-list { display: flex; flex-direction: column; gap: 8px; }
+  .record-item { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; animation: slideIn 0.25s ease; transition: border-color 0.2s; }
+  .record-item.archived { opacity: 0.72; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+  .record-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .record-dot.dim { background: var(--text-dim); }
+  .record-date { font-family: var(--mono); font-size: 13px; color: var(--text-muted); min-width: 92px; }
+  .record-duration { flex: 1; font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); }
+  .record-duration span { font-size: 12px; font-weight: 400; color: var(--accent2); margin-left: 4px; }
+  .lock-icon { font-size: 13px; color: var(--text-dim); flex-shrink: 0; }
+  .btn-delete { background: transparent; border: 1px solid transparent; color: var(--text-dim); font-size: 14px; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; line-height: 1; flex-shrink: 0; font-family: var(--mono); }
+  .btn-delete:hover { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: var(--danger); }
 
-  .records-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .record-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    animation: slideIn 0.25s ease;
-    transition: border-color 0.2s;
-  }
-
-  .record-item:hover { border-color: var(--surface2); }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .record-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .record-date {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text-muted);
-    min-width: 90px;
-  }
-
-  .record-duration {
-    flex: 1;
-    font-family: var(--mono);
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .record-duration span {
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--accent2);
-    margin-left: 4px;
-  }
-
-  .btn-delete {
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--text-dim);
-    font-size: 16px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.2s;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .btn-delete:hover {
-    background: rgba(248,113,113,0.1);
-    border-color: rgba(248,113,113,0.3);
-    color: var(--danger);
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 48px 20px;
-    color: var(--text-dim);
-    font-size: 14px;
-  }
-
+  /* Empty */
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--text-dim); font-size: 14px; }
   .empty-state .icon { font-size: 36px; margin-bottom: 12px; }
 
-  /* History tab */
-  .month-group {
-    margin-bottom: 8px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .month-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 18px;
-    background: var(--surface);
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s;
-  }
-
+  /* Month group */
+  .month-group { margin-bottom: 8px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .month-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: var(--surface); cursor: pointer; user-select: none; transition: background 0.15s; }
   .month-header:hover { background: var(--surface2); }
-
-  .month-toggle {
-    font-size: 12px;
-    color: var(--text-muted);
-    transition: transform 0.25s;
-    font-family: var(--mono);
-    flex-shrink: 0;
-  }
-
+  .month-toggle { font-size: 12px; color: var(--text-muted); transition: transform 0.25s; font-family: var(--mono); flex-shrink: 0; }
   .month-toggle.open { transform: rotate(90deg); }
+  .month-name { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
+  .month-badge { font-family: var(--mono); font-size: 11px; color: var(--text-muted); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 20px; }
+  .month-total { font-family: var(--mono); font-size: 12px; color: var(--accent2); }
+  .month-body { display: none; background: var(--bg); border-top: 1px solid var(--border); }
+  .month-body.open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .month-body .records-list { padding: 12px; }
+  .month-group.current-month .month-header { border-left: 3px solid var(--accent); }
+  .pill { font-family: var(--mono); font-size: 10px; padding: 1px 7px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
+  .pill-current { color: var(--accent); background: rgba(91,138,245,0.1); border: 1px solid rgba(91,138,245,0.25); }
+  .pill-archived { color: var(--text-dim); background: rgba(61,69,99,0.3); border: 1px solid var(--border); }
 
-  .month-name {
-    font-family: var(--mono);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    flex: 1;
-  }
+  /* Trash */
+  .info-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: var(--text-muted); font-family: var(--mono); display: flex; align-items: center; gap: 10px; }
+  .warn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); flex-shrink: 0; }
+  .trash-record { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; opacity: 0.85; }
+  .trash-meta { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+  .trash-duration { font-family: var(--mono); font-size: 14px; color: var(--text); }
+  .trash-info-row { font-family: var(--mono); font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; }
+  .expiry-warn { color: var(--warn); }
+  .btn-restore { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--success); font-size: 12px; cursor: pointer; padding: 5px 12px; border-radius: 6px; transition: all 0.2s; font-family: var(--mono); flex-shrink: 0; }
+  .btn-restore:hover { background: rgba(52,211,153,0.2); }
+  .btn-purge { background: transparent; border: 1px solid transparent; color: var(--text-dim); font-size: 13px; cursor: pointer; padding: 5px 8px; border-radius: 6px; transition: all 0.2s; font-family: var(--mono); flex-shrink: 0; }
+  .btn-purge:hover { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: var(--danger); }
 
-  .month-badge {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
-    border-radius: 20px;
-  }
+  /* Export */
+  .export-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+  .export-bar-label { width: 100%; font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .export-select { flex: 1; min-width: 160px; padding: 9px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: var(--mono); font-size: 13px; outline: none; appearance: none; -webkit-appearance: none; cursor: pointer; }
+  .export-select:focus { border-color: var(--accent); }
 
-  .month-total {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--accent2);
-  }
+  /* Dialog */
+  .dialog-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+  .dialog-overlay.open { display: flex; }
+  .dialog { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; max-width: 380px; width: 90%; animation: popIn 0.2s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+  .dialog h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; color: var(--text); }
+  .dialog p { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6; }
+  .dialog-actions { display: flex; gap: 10px; justify-content: flex-end; }
+  .btn-dialog-danger { background: rgba(248,113,113,0.12); color: var(--danger); border: 1px solid rgba(248,113,113,0.3); }
+  .btn-dialog-danger:hover { background: rgba(248,113,113,0.22); }
 
-  .month-body {
-    display: none;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-  }
-
-  .month-body.open {
-    display: block;
-    animation: fadeIn 0.2s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .month-body .records-list {
-    padding: 12px;
-  }
-
-  /* Current month: open by default, marked differently */
-  .month-group.current-month .month-header {
-    border-left: 3px solid var(--accent);
-  }
-
-  .current-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--accent);
-    background: rgba(91,138,245,0.1);
-    border: 1px solid rgba(91,138,245,0.25);
-    padding: 1px 7px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  /* Spinner */
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 13px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    opacity: 0;
-    transition: all 0.3s;
-    z-index: 100;
-    white-space: nowrap;
-    pointer-events: none;
-  }
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: var(--mono); font-size: 13px; padding: 10px 20px; border-radius: 8px; opacity: 0; transition: all 0.3s; z-index: 300; white-space: nowrap; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
   @media (max-width: 500px) {
     .form-row { grid-template-columns: 1fr 1fr; }
-    .btn-add { grid-column: span 2; }
     h1 { font-size: 26px; }
+    .export-bar { flex-direction: column; }
   }
 </style>
 </head>
@@ -443,17 +169,21 @@
   <header>
     <div class="header-label">// tracker</div>
     <h1>Duration <span>Log</span></h1>
-    <p class="header-sub">Track time entries by date — minutes or hours.</p>
+    <p class="header-sub">Track time entries — with archive protection &amp; export.</p>
   </header>
 
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('records')">Records</button>
     <button class="tab-btn" onclick="switchTab('history')">History</button>
+    <button class="tab-btn" onclick="switchTab('trash')" id="trash-btn" style="position:relative">
+      Trash
+      <span class="tab-badge" id="trash-count"></span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('export')">Export</button>
   </div>
 
-  <!-- RECORDS TAB -->
+  <!-- RECORDS -->
   <div id="tab-records" class="tab-panel active">
-
     <div class="form-card">
       <div class="form-title">// new entry</div>
       <div class="form-row">
@@ -473,228 +203,413 @@
           </select>
         </div>
       </div>
-      <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
-        <button class="btn-add" onclick="addRecord()" style="padding: 10px 24px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; height: auto;">
-          + Add Record
-        </button>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="addRecord()">+ Add Record</button>
       </div>
     </div>
-
-    <div class="section-label">// this month</div>
+    <div class="section-label">this month</div>
     <div class="records-list" id="current-records"></div>
-
   </div>
 
-  <!-- HISTORY TAB -->
+  <!-- HISTORY -->
   <div id="tab-history" class="tab-panel">
     <div id="history-container"></div>
   </div>
 
+  <!-- TRASH -->
+  <div id="tab-trash" class="tab-panel">
+    <div class="info-bar">
+      <div class="warn-dot"></div>
+      Deleted entries are kept for <strong style="color:var(--warn);margin:0 4px">30 days</strong>, then permanently removed.
+    </div>
+    <div id="trash-list"></div>
+  </div>
+
+  <!-- EXPORT -->
+  <div id="tab-export" class="tab-panel">
+    <div class="export-bar">
+      <div class="export-bar-label">select month to export</div>
+      <select class="export-select" id="export-select" onchange="renderExportPreview()">
+        <option value="all">All Records</option>
+      </select>
+      <button class="btn btn-ghost" onclick="exportPDF()">⬇ PDF</button>
+      <button class="btn btn-ghost" id="word-btn" onclick="exportWord()">⬇ Word (.docx)</button>
+    </div>
+    <div id="export-preview"></div>
+  </div>
+
+</div>
+
+<!-- Dialog -->
+<div class="dialog-overlay" id="dialog-overlay">
+  <div class="dialog">
+    <h3 id="dlg-title">Are you sure?</h3>
+    <p id="dlg-msg">This cannot be undone.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" onclick="closeDialog()">Cancel</button>
+      <button class="btn btn-dialog-danger" id="dlg-confirm" onclick="confirmDialog()">Delete</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.min.js"></script>
 <script>
-  const STORAGE_KEY = 'duration_records_v1';
+const REC_KEY   = 'dur_records_v1';
+const TRASH_KEY = 'dur_trash_v1';
+const TTL       = 30 * 24 * 60 * 60 * 1000;
 
-  // ─── Helpers ──────────────────────────────────────────────
+let dlgAction = null;
 
-  function getRecords() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-    catch { return []; }
-  }
+// ── Storage ──────────────────────────────────────────────────
 
-  function saveRecords(records) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-  }
+function getRec()   { try { return JSON.parse(localStorage.getItem(REC_KEY))   || []; } catch { return []; } }
+function saveRec(r) { localStorage.setItem(REC_KEY, JSON.stringify(r)); }
 
-  function getMonthKey(dateStr) {
-    const [y, m] = dateStr.split('-');
-    return `${y}-${m}`;
-  }
+function getTrash() {
+  try {
+    const items = JSON.parse(localStorage.getItem(TRASH_KEY)) || [];
+    const now = Date.now();
+    const valid = items.filter(i => (now - i.deletedAt) < TTL);
+    if (valid.length !== items.length) localStorage.setItem(TRASH_KEY, JSON.stringify(valid));
+    return valid;
+  } catch { return []; }
+}
+function saveTrash(t) { localStorage.setItem(TRASH_KEY, JSON.stringify(t)); }
 
-  function formatMonthName(key) {
-    const [y, m] = key.split('-');
-    const d = new Date(y, parseInt(m) - 1, 1);
-    return d.toLocaleString('default', { month: 'long', year: 'numeric' });
-  }
+// ── Util ─────────────────────────────────────────────────────
 
-  function currentMonthKey() {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-  }
+function monthKey(dateStr) { const [y,m] = dateStr.split('-'); return `${y}-${m}`; }
+function nowKey() { const n = new Date(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}`; }
+function monthName(k) { const [y,m] = k.split('-'); return new Date(y,parseInt(m)-1,1).toLocaleString('default',{month:'long',year:'numeric'}); }
+function isArchived(d) { return monthKey(d) !== nowKey(); }
 
-  function formatDuration(value, unit) {
-    return `${value} <span>${unit}</span>`;
-  }
+function totalStr(recs) {
+  let m = 0;
+  for (const r of recs) m += r.unit === 'hr' ? r.duration*60 : r.duration;
+  if (m >= 60) { const h = Math.floor(m/60), rm = m%60; return rm ? `${h}h ${rm}m` : `${h}h`; }
+  return `${m}m`;
+}
 
-  function totalDuration(records) {
-    let mins = 0, hrs = 0;
-    for (const r of records) {
-      if (r.unit === 'min') mins += r.duration;
-      else hrs += r.duration;
+function daysLeft(deletedAt) { return Math.max(0, Math.ceil((TTL - (Date.now()-deletedAt)) / 86400000)); }
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+// ── Dialog ───────────────────────────────────────────────────
+
+function openDialog(title, msg, label, action) {
+  document.getElementById('dlg-title').textContent = title;
+  document.getElementById('dlg-msg').textContent   = msg;
+  document.getElementById('dlg-confirm').textContent = label;
+  dlgAction = action;
+  document.getElementById('dialog-overlay').classList.add('open');
+}
+function closeDialog() { document.getElementById('dialog-overlay').classList.remove('open'); dlgAction = null; }
+function confirmDialog() { if (dlgAction) dlgAction(); closeDialog(); }
+document.getElementById('dialog-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeDialog(); });
+
+// ── CRUD ─────────────────────────────────────────────────────
+
+function addRecord() {
+  const date     = document.getElementById('input-date').value;
+  const duration = parseInt(document.getElementById('input-duration').value);
+  const unit     = document.getElementById('input-unit').value;
+  if (!date)            { toast('⚠ Please select a date.'); return; }
+  if (!duration || duration < 1) { toast('⚠ Enter a valid duration.'); return; }
+  const recs = getRec();
+  recs.push({ id: Date.now(), date, duration, unit });
+  recs.sort((a,b) => b.date.localeCompare(a.date));
+  saveRec(recs);
+  document.getElementById('input-duration').value = '';
+  render(); toast('✓ Record added.');
+}
+
+function deleteRecord(id) {
+  const rec = getRec().find(r => r.id === id);
+  if (!rec) return;
+  if (isArchived(rec.date)) { toast('🔒 Past months are locked — can\'t delete.'); return; }
+  openDialog(
+    'Move to Trash?',
+    `Entry for ${rec.date} (${rec.duration} ${rec.unit}) will go to trash. Restorable for 30 days.`,
+    'Move to Trash',
+    () => {
+      saveRec(getRec().filter(r => r.id !== id));
+      const t = getTrash(); t.push({...rec, deletedAt: Date.now()}); saveTrash(t);
+      render(); toast('✗ Moved to trash.');
     }
-    // Normalize to hours if >= 60 min
-    const totalMin = mins + hrs * 60;
-    if (totalMin >= 60) {
-      const h = Math.floor(totalMin / 60);
-      const m = totalMin % 60;
-      return m > 0 ? `${h}h ${m}m` : `${h}h`;
-    }
-    return `${totalMin}m`;
-  }
+  );
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
-  }
+function restoreRecord(id) {
+  const trash = getTrash();
+  const rec = trash.find(r => r.id === id);
+  if (!rec) return;
+  const { deletedAt, ...clean } = rec;
+  const recs = getRec(); recs.push(clean); recs.sort((a,b) => b.date.localeCompare(a.date));
+  saveRec(recs); saveTrash(trash.filter(r => r.id !== id));
+  render(); toast('✓ Record restored.');
+}
 
-  // ─── Core ─────────────────────────────────────────────────
+function purgeRecord(id) {
+  openDialog('Permanently Delete?', 'This cannot be recovered.', 'Delete Forever',
+    () => { saveTrash(getTrash().filter(r => r.id !== id)); render(); toast('✗ Permanently deleted.'); }
+  );
+}
 
-  function addRecord() {
-    const dateEl = document.getElementById('input-date');
-    const durEl = document.getElementById('input-duration');
-    const unitEl = document.getElementById('input-unit');
+// ── Render helpers ───────────────────────────────────────────
 
-    const date = dateEl.value;
-    const duration = parseInt(durEl.value);
-    const unit = unitEl.value;
+function makeRecordEl(r, locked) {
+  const d = document.createElement('div');
+  d.className = 'record-item' + (locked ? ' archived' : '');
+  d.innerHTML = `
+    <div class="record-dot${locked ? ' dim' : ''}"></div>
+    <div class="record-date">${r.date}</div>
+    <div class="record-duration">${r.duration}<span>${r.unit}</span></div>
+    ${locked
+      ? `<span class="lock-icon" title="Past months are locked">🔒</span>`
+      : `<button class="btn-delete" onclick="deleteRecord(${r.id})" title="Move to trash">✕</button>`}
+  `;
+  return d;
+}
 
-    if (!date) { showToast('⚠ Please select a date.'); return; }
-    if (!duration || duration < 1) { showToast('⚠ Enter a valid duration.'); return; }
+// ── Render tabs ──────────────────────────────────────────────
 
-    const records = getRecords();
-    records.push({ id: Date.now(), date, duration, unit });
-    records.sort((a, b) => b.date.localeCompare(a.date));
-    saveRecords(records);
+function renderRecords() {
+  const cmk  = nowKey();
+  const recs = getRec().filter(r => monthKey(r.date) === cmk);
+  const el   = document.getElementById('current-records');
+  el.innerHTML = '';
+  if (!recs.length) { el.innerHTML = `<div class="empty-state"><div class="icon">◷</div>No records for this month yet.</div>`; return; }
+  recs.forEach(r => el.appendChild(makeRecordEl(r, false)));
+}
 
-    durEl.value = '';
-    render();
-    showToast('✓ Record added.');
-  }
-
-  function deleteRecord(id) {
-    const records = getRecords().filter(r => r.id !== id);
-    saveRecords(records);
-    render();
-    showToast('✗ Record deleted.');
-  }
-
-  // ─── Render ───────────────────────────────────────────────
-
-  function renderRecordItem(r) {
-    const div = document.createElement('div');
-    div.className = 'record-item';
-    div.innerHTML = `
-      <div class="record-dot"></div>
-      <div class="record-date">${r.date}</div>
-      <div class="record-duration">${formatDuration(r.duration, r.unit)}</div>
-      <button class="btn-delete" onclick="deleteRecord(${r.id})" title="Delete">✕</button>
+function renderHistory() {
+  const container = document.getElementById('history-container');
+  container.innerHTML = '';
+  const recs = getRec();
+  if (!recs.length) { container.innerHTML = `<div class="empty-state"><div class="icon">◷</div>No history yet.</div>`; return; }
+  const cmk = nowKey();
+  const groups = {};
+  for (const r of recs) { const mk = monthKey(r.date); if (!groups[mk]) groups[mk] = []; groups[mk].push(r); }
+  Object.keys(groups).sort((a,b) => b.localeCompare(a)).forEach(mk => {
+    const isCurrent = mk === cmk;
+    const mrs = groups[mk];
+    const g = document.createElement('div');
+    g.className = 'month-group' + (isCurrent ? ' current-month' : '');
+    g.innerHTML = `
+      <div class="month-header" onclick="toggleMonth('${mk}')">
+        <span class="month-toggle ${isCurrent?'open':''}" id="tog-${mk}">▶</span>
+        <span class="month-name">${monthName(mk)}</span>
+        <span class="pill ${isCurrent?'pill-current':'pill-archived'}">${isCurrent?'current':'archived'}</span>
+        <span class="month-badge">${mrs.length} entr${mrs.length===1?'y':'ies'}</span>
+        <span class="month-total">${totalStr(mrs)}</span>
+      </div>
+      <div class="month-body ${isCurrent?'open':''}" id="body-${mk}">
+        <div class="records-list"></div>
+      </div>
     `;
-    return div;
-  }
+    const list = g.querySelector('.records-list');
+    mrs.forEach(r => list.appendChild(makeRecordEl(r, !isCurrent)));
+    container.appendChild(g);
+  });
+}
 
-  function renderCurrentTab() {
-    const cmk = currentMonthKey();
-    const records = getRecords().filter(r => getMonthKey(r.date) === cmk);
-    const container = document.getElementById('current-records');
-    container.innerHTML = '';
+function toggleMonth(mk) {
+  document.getElementById(`body-${mk}`).classList.toggle('open');
+  document.getElementById(`tog-${mk}`).classList.toggle('open');
+}
 
-    if (records.length === 0) {
-      container.innerHTML = `<div class="empty-state"><div class="icon">◷</div>No records for this month yet.</div>`;
-      return;
-    }
+function renderTrash() {
+  const trash = getTrash();
+  const countEl = document.getElementById('trash-count');
+  if (trash.length) { countEl.textContent = trash.length; countEl.style.display = 'block'; }
+  else countEl.style.display = 'none';
 
-    records.forEach(r => container.appendChild(renderRecordItem(r)));
-  }
+  const list = document.getElementById('trash-list');
+  list.innerHTML = '';
+  if (!trash.length) { list.innerHTML = `<div class="empty-state"><div class="icon">🗑</div>Trash is empty.</div>`; return; }
 
-  function renderHistoryTab() {
-    const container = document.getElementById('history-container');
-    container.innerHTML = '';
-
-    const records = getRecords();
-    if (records.length === 0) {
-      container.innerHTML = `<div class="empty-state"><div class="icon">◷</div>No history yet.</div>`;
-      return;
-    }
-
-    const cmk = currentMonthKey();
-
-    // Group by month
-    const groups = {};
-    for (const r of records) {
-      const mk = getMonthKey(r.date);
-      if (!groups[mk]) groups[mk] = [];
-      groups[mk].push(r);
-    }
-
-    // Sort months descending
-    const sortedMonths = Object.keys(groups).sort((a, b) => b.localeCompare(a));
-
-    sortedMonths.forEach(mk => {
-      const isCurrent = mk === cmk;
-      const monthRecords = groups[mk];
-
-      const group = document.createElement('div');
-      group.className = 'month-group' + (isCurrent ? ' current-month' : '');
-      group.dataset.month = mk;
-
-      const bodyId = `month-body-${mk}`;
-      const toggleId = `toggle-${mk}`;
-
-      group.innerHTML = `
-        <div class="month-header" onclick="toggleMonth('${mk}')">
-          <span class="month-toggle ${isCurrent ? 'open' : ''}" id="${toggleId}">▶</span>
-          <span class="month-name">${formatMonthName(mk)}</span>
-          ${isCurrent ? '<span class="current-tag">current</span>' : ''}
-          <span class="month-badge">${monthRecords.length} entr${monthRecords.length === 1 ? 'y' : 'ies'}</span>
-          <span class="month-total">${totalDuration(monthRecords)}</span>
+  trash.sort((a,b) => b.deletedAt - a.deletedAt).forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'trash-record';
+    d.innerHTML = `
+      <div class="trash-meta">
+        <div class="trash-duration">${r.duration} <span style="color:var(--accent2);font-size:12px">${r.unit}</span></div>
+        <div class="trash-info-row">
+          <span>${r.date}</span>
+          <span class="expiry-warn">⏳ ${daysLeft(r.deletedAt)}d left</span>
         </div>
-        <div class="month-body ${isCurrent ? 'open' : ''}" id="${bodyId}">
-          <div class="records-list"></div>
-        </div>
-      `;
+      </div>
+      <button class="btn-restore" onclick="restoreRecord(${r.id})">↩ Restore</button>
+      <button class="btn-purge" onclick="purgeRecord(${r.id})" title="Delete permanently">✕</button>
+    `;
+    list.appendChild(d);
+  });
+}
 
-      const list = group.querySelector('.records-list');
-      monthRecords.forEach(r => list.appendChild(renderRecordItem(r)));
+function populateExportSelect() {
+  const sel = document.getElementById('export-select');
+  const cur = sel.value;
+  const months = [...new Set(getRec().map(r => monthKey(r.date)))].sort((a,b) => b.localeCompare(a));
+  sel.innerHTML = '<option value="all">All Records</option>';
+  months.forEach(mk => { const o = document.createElement('option'); o.value = mk; o.textContent = monthName(mk); sel.appendChild(o); });
+  if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
+}
 
-      container.appendChild(group);
+function getExportRecs() {
+  const v = document.getElementById('export-select').value;
+  const r = getRec();
+  return v === 'all' ? r : r.filter(x => monthKey(x.date) === v);
+}
+
+function renderExportPreview() {
+  const recs = getExportRecs();
+  const container = document.getElementById('export-preview');
+  if (!recs.length) { container.innerHTML = `<div class="empty-state"><div class="icon">📄</div>No records to preview.</div>`; return; }
+  const rows = recs.map(r => `<tr>
+    <td style="padding:8px 12px;border:1px solid #252a38;font-family:var(--mono);font-size:13px;color:var(--text-muted)">${r.date}</td>
+    <td style="padding:8px 12px;border:1px solid #252a38;font-family:var(--mono);font-size:14px;color:var(--text);font-weight:600">${r.duration} ${r.unit}</td>
+  </tr>`).join('');
+  container.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:12px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center">
+        <span>Preview · ${recs.length} entries</span>
+        <span style="color:var(--accent2)">${totalStr(recs)} total</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse">
+          <thead><tr>
+            <th style="padding:10px 12px;border:1px solid #252a38;font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:left;letter-spacing:1px;text-transform:uppercase;background:var(--surface2)">Date</th>
+            <th style="padding:10px 12px;border:1px solid #252a38;font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:left;letter-spacing:1px;text-transform:uppercase;background:var(--surface2)">Duration</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ── Export PDF ───────────────────────────────────────────────
+
+function exportPDF() {
+  const recs = getExportRecs();
+  if (!recs.length) { toast('⚠ No records to export.'); return; }
+  const v = document.getElementById('export-select').value;
+  const title = v === 'all' ? 'All Records' : monthName(v);
+  const rows = recs.map(r => `<tr>
+    <td style="padding:10px 16px;border-bottom:1px solid #e2e8f0;font-family:monospace;font-size:13px;color:#475569">${r.date}</td>
+    <td style="padding:10px 16px;border-bottom:1px solid #e2e8f0;font-family:monospace;font-size:14px;color:#1e293b;font-weight:700">${r.duration} ${r.unit}</td>
+  </tr>`).join('');
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Duration Log</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:#fff;color:#1e293b;padding:48px}
+    .eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:#6366f1;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+    h1{font-size:28px;font-weight:600;color:#0f172a;margin-bottom:6px}
+    .meta{font-size:13px;color:#94a3b8;font-family:'DM Mono',monospace;margin-bottom:32px}
+    table{width:100%;border-collapse:collapse}
+    thead th{padding:10px 16px;background:#f8fafc;border-bottom:2px solid #e2e8f0;text-align:left;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#94a3b8;font-family:'DM Mono',monospace}
+    .footer{margin-top:28px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;align-items:center}
+    .total-label{font-family:'DM Mono',monospace;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px}
+    .total-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:600;color:#6366f1}
+    @media print{body{padding:32px}}
+  </style></head><body>
+    <div class="eyebrow">// duration log</div>
+    <h1>${title}</h1>
+    <div class="meta">Exported ${new Date().toLocaleDateString()} &middot; ${recs.length} records</div>
+    <table><thead><tr><th>Date</th><th>Duration</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="footer"><span class="total-label">Total</span><span class="total-val">${totalStr(recs)}</span></div>
+  </body></html>`;
+  const w = window.open('','_blank');
+  w.document.write(html); w.document.close(); w.focus();
+  setTimeout(() => w.print(), 600);
+}
+
+// ── Export Word ──────────────────────────────────────────────
+
+async function exportWord() {
+  const recs = getExportRecs();
+  if (!recs.length) { toast('⚠ No records to export.'); return; }
+  const btn = document.getElementById('word-btn');
+  btn.innerHTML = '<span class="spinner"></span> Generating…'; btn.disabled = true;
+  try {
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+            AlignmentType, BorderStyle, WidthType, ShadingType, HeadingLevel } = docx;
+
+    const v     = document.getElementById('export-select').value;
+    const title = v === 'all' ? 'All Records' : monthName(v);
+    const total = totalStr(recs);
+
+    const brd = { style: BorderStyle.SINGLE, size: 1, color: 'D1D5DB' };
+    const borders = { top: brd, bottom: brd, left: brd, right: brd };
+    const CW = [4680, 4680];
+
+    const mkCell = (text, isHeader) => new TableCell({
+      borders,
+      width: { size: CW[0], type: WidthType.DXA },
+      shading: { fill: isHeader ? 'F1F5F9' : 'FFFFFF', type: ShadingType.CLEAR },
+      margins: { top: isHeader ? 120 : 100, bottom: isHeader ? 120 : 100, left: 160, right: 160 },
+      children: [new Paragraph({ children: [new TextRun({ text, bold: isHeader, size: isHeader ? 18 : 20, font: 'Courier New', color: isHeader ? '64748B' : '1E293B' })] })]
     });
-  }
 
-  function toggleMonth(mk) {
-    const body = document.getElementById(`month-body-${mk}`);
-    const toggle = document.getElementById(`toggle-${mk}`);
-    const isOpen = body.classList.contains('open');
-    body.classList.toggle('open', !isOpen);
-    toggle.classList.toggle('open', !isOpen);
-  }
-
-  function render() {
-    renderCurrentTab();
-    renderHistoryTab();
-  }
-
-  // ─── Tabs ─────────────────────────────────────────────────
-
-  function switchTab(name) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(`tab-${name}`).classList.add('active');
-    document.querySelectorAll('.tab-btn').forEach(b => {
-      if (b.textContent.toLowerCase() === name) b.classList.add('active');
+    const dataRows = recs.map(r => new TableRow({ children: [mkCell(r.date, false), mkCell(`${r.duration} ${r.unit}`, false)] }));
+    const table = new Table({
+      width: { size: 9360, type: WidthType.DXA },
+      columnWidths: CW,
+      rows: [
+        new TableRow({ children: [mkCell('DATE', true), mkCell('DURATION', true)] }),
+        ...dataRows
+      ]
     });
-  }
 
-  // ─── Init ─────────────────────────────────────────────────
+    const doc = new Document({
+      sections: [{
+        properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 } } },
+        children: [
+          new Paragraph({ children: [new TextRun({ text: '// DURATION LOG', size: 18, color: '6366F1', font: 'Courier New' })] }),
+          new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text: title, size: 36, bold: true, font: 'Arial', color: '0F172A' })], spacing: { before: 120, after: 100 } }),
+          new Paragraph({ children: [new TextRun({ text: `Exported ${new Date().toLocaleDateString()} \u00B7 ${recs.length} record${recs.length===1?'':'s'}`, size: 18, color: '94A3B8', font: 'Courier New' })], spacing: { after: 340 } }),
+          table,
+          new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: 'TOTAL  ', size: 20, color: '94A3B8', font: 'Courier New' }), new TextRun({ text: total, size: 24, bold: true, color: '6366F1', font: 'Courier New' })], spacing: { before: 240 } })
+        ]
+      }]
+    });
 
-  // Set default date to today
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('input-date').value = today;
+    const blob = await Packer.toBlob(doc);
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a'); a.href = url; a.download = `duration-log-${v==='all'?'all':v}.docx`; a.click();
+    URL.revokeObjectURL(url);
+    toast('✓ Word file downloaded.');
+  } catch(e) { console.error(e); toast('⚠ Export failed. See console.'); }
+  finally { btn.innerHTML = '⬇ Word (.docx)'; btn.disabled = false; }
+}
 
-  render();
+// ── Tabs ─────────────────────────────────────────────────────
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  // match tab button by text start
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.textContent.trim().toLowerCase().startsWith(name)) b.classList.add('active');
+  });
+  if (name === 'export') { populateExportSelect(); renderExportPreview(); }
+}
+
+// ── Init ─────────────────────────────────────────────────────
+
+function render() { renderRecords(); renderHistory(); renderTrash(); populateExportSelect(); renderExportPreview(); }
+
+document.getElementById('input-date').value = new Date().toISOString().split('T')[0];
+document.getElementById('input-duration').addEventListener('keydown', e => { if (e.key === 'Enter') addRecord(); });
+
+render();
 </script>
 </body>
 </html>
